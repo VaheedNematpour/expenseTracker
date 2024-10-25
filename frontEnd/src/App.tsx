@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ExpenseList from "./components/ExpenseTracker/ExpenseList";
 import ExpenseFilter from "./components/ExpenseTracker/ExpenseFilter";
+import ExpenseForm from "./components/ExpenseTracker/ExpenseForm";
 
 const App = () => {
   const [expenses, setExpenses] = useState([
@@ -16,6 +17,12 @@ const App = () => {
   return (
     <>
       <main className="max-w-5xl mx-auto py-8">
+        <ExpenseForm
+          onAddExpense={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        />
+
         <ExpenseFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
