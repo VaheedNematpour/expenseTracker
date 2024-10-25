@@ -13,7 +13,7 @@ interface Props {
 const ExpenseList = ({ expenses, onDleteExpense }: Props) => {
   return (
     <>
-      <h2 className="text-3xl text-gray-800 font-bold">Expense List</h2>
+      <h2 className="text-3xl text-gray-800 font-bold my-4">Expense List</h2>
 
       <table className="w-full text-left">
         <thead>
