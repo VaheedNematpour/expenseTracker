@@ -100,7 +100,7 @@ function ExpenseForm({ onAddExpense }: Props) {
 
         <button
           type="submit"
-          className="w-full border-2 border-gray-800 py-2 text-xl text-gray-800 ounded hover:bg-gray-200"
+          className="w-full border-2 border-gray-800 py-2 text-xl text-gray-800 rounded hover:bg-gray-200"
         >
           Add
         </button>
