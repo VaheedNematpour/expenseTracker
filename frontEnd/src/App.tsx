@@ -3,6 +3,7 @@ import ExpenseList from "./components/ExpenseTracker/ExpenseList";
 import axios, { CanceledError } from "axios";
 import Expenses from "./components/Expenses";
 import ExpenseFilter from "./components/ExpenseTracker/ExpenseFilter";
+import ExpenseForm from "./components/ExpenseTracker/ExpenseForm";
 
 const App = () => {
   const [expenses, setExpenses] = useState<Expenses[]>([]);
@@ -39,10 +40,17 @@ const App = () => {
     <>
       <main className="max-w-5xl mx-auto">
         {error && <p className="text-xl text-red-800">{error}</p>}
+        <ExpenseForm
+          onAddExpense={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        />
+
         <ExpenseFilter
           categories={categories}
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
+
         <ExpenseList
           expenses={newExpanses}
           onDeleteExpense={(id) =>

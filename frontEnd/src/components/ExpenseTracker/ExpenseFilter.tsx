@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
-interface Categories {
-  id: number;
-  title: string;
-}
+import Categories from "../Categories";
 
 interface Props {
   categories: Categories[];
