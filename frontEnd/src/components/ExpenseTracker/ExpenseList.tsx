@@ -1,16 +1,11 @@
-interface Expenses {
-  id: number;
-  title: string;
-  category: string;
-  amount: number;
-}
+import Expenses from "../Expenses";
 
 interface Props {
   expenses: Expenses[];
-  onDleteExpense: (id: number) => void;
+  onDeleteExpense: (id: number) => void;
 }
 
-const ExpenseList = ({ expenses, onDleteExpense }: Props) => {
+const ExpenseList = ({ expenses, onDeleteExpense }: Props) => {
   return (
     <>
       <h2 className="text-3xl text-gray-800 font-bold my-4">Expense List</h2>
@@ -59,7 +54,7 @@ const ExpenseList = ({ expenses, onDleteExpense }: Props) => {
               </td>
               <td scope="row" className="px-6 py-4">
                 <button
-                  onClick={() => onDleteExpense(expense.id)}
+                  onClick={() => onDeleteExpense(expense.id)}
                   className="border-2 border-red-800 p-1 rounded text-xl text-red-800 hover:bg-red-800 hover:text-red-100"
                 >
                   Delete
@@ -77,10 +72,7 @@ const ExpenseList = ({ expenses, onDleteExpense }: Props) => {
               Total
             </th>
             <th colSpan={2} className="px-6 py-3 text-xl text-gray-600">
-              $
-              {expenses
-                .reduce((ac, expense) => ac + expense.amount, 0)
-                .toFixed(2)}
+              ${expenses.reduce((ac, expense) => ac + expense.amount, 0)}
             </th>
           </tr>
         </tfoot>
