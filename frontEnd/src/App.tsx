@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <>
-      <main className="max-w-5xl mx-auto">
+      <main className="max-w-5xl mx-auto py-8">
         {error && <p className="text-xl text-red-800">{error}</p>}
         <ExpenseForm
           onAddExpense={(expense) =>

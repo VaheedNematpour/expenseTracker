@@ -35,7 +35,7 @@ function ExpenseForm({ onAddExpense }: Props) {
 
   return (
     <>
-      <h2>Expense Form</h2>
+      <h2 className="text-3xl text-gray-800 font-bold my-4">Expense Form</h2>
 
       <form
         onSubmit={handleSubmit((data) => {
@@ -43,15 +43,33 @@ function ExpenseForm({ onAddExpense }: Props) {
           reset();
         })}
       >
-        <div>
-          <label htmlFor="title">Title</label>
-          <input {...register("title")} type="text" placeholder="Title" />
-          {errors.title && <p>{errors.title.message}</p>}
+        <div className="space-y-2 my-2">
+          <label htmlFor="title" className="text-xl text-gray-600 font-medium">
+            Title
+          </label>
+          <input
+            {...register("title")}
+            type="text"
+            placeholder="Title"
+            className="text-xl text-gray-600 block w-full bg-gray-200 px-6 py-2 rounded"
+          />
+          {errors.title && (
+            <p className="text-xl text-red-800">{errors.title.message}</p>
+          )}
         </div>
 
-        <div>
-          <label htmlFor="categories">Categories</label>
-          <select id="categories" {...register("category")}>
+        <div className="space-y-2 my-2">
+          <label
+            htmlFor="categories"
+            className="text-xl text-gray-600 font-medium"
+          >
+            Categories
+          </label>
+          <select
+            id="categories"
+            {...register("category")}
+            className="text-xl text-gray-600 block w-full bg-gray-200 px-6 py-2 rounded"
+          >
             <option value=""></option>
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -59,21 +77,33 @@ function ExpenseForm({ onAddExpense }: Props) {
               </option>
             ))}
           </select>
-          {errors.category && <p>{errors.category.message}</p>}
+          {errors.category && (
+            <p className="text-xl text-red-800">{errors.category.message}</p>
+          )}
         </div>
 
-        <div>
-          <label htmlFor="amount">Amount</label>
+        <div className="space-y-2 my-2">
+          <label htmlFor="amount" className="text-xl text-gray-600 font-medium">
+            Amount
+          </label>
           <input
             {...register("amount", { valueAsNumber: true })}
             type="number"
             id="amount"
             placeholder="Amount"
+            className="text-xl text-gray-600 block w-full bg-gray-200 px-6 py-2 rounded"
           />
-          {errors.amount && <p>{errors.amount.message}</p>}
+          {errors.amount && (
+            <p className="text-xl text-red-800">{errors.amount.message}</p>
+          )}
         </div>
 
-        <button>Add</button>
+        <button
+          type="submit"
+          className="w-full border-2 border-gray-800 py-2 text-xl text-gray-800 ounded hover:bg-gray-200"
+        >
+          Add
+        </button>
       </form>
     </>
   );
