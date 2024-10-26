@@ -45,15 +45,24 @@ const App = () => {
     });
   };
 
+  const handleAddExpense = (expense: Expenses) => {
+    const originalExpense = [...expenses];
+    setExpenses([...expenses, { ...expense, id: expenses.length + 1 }]);
+    axios
+      .post("http://localhost:3000/Categories", expense)
+      .then(({ data }) => setExpenses([...expenses, data]))
+      .catch((err) => {
+        setError(err.message);
+        setExpenses(originalExpense);
+      });
+  };
+
   return (
     <>
       <main className="max-w-5xl mx-auto py-8">
         {error && <p className="text-xl text-red-800">{error}</p>}
-        <ExpenseForm
-          onAddExpense={(expense) =>
-            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
-          }
-        />
+
+        <ExpenseForm onAddExpense={(expense) => handleAddExpense(expense)} />
 
         <ExpenseFilter
           categories={categories}
