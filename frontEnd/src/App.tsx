@@ -1,24 +1,50 @@
 import { useEffect, useState } from "react";
 import ExpenseList from "./components/ExpenseTracker/ExpenseList";
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 import Expenses from "./components/Expenses";
+import ExpenseFilter from "./components/ExpenseTracker/ExpenseFilter";
 
 const App = () => {
   const [expenses, setExpenses] = useState<Expenses[]>([]);
   const [error, setError] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    axios
+      .get<Expenses[]>("http://localhost:3000/Expenses", {
+        signal: controller.signal,
+      })
+      .then((res) => setExpenses(res.data))
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
+  }, []);
   useEffect(() => {
     axios
-      .get<Expenses[]>("http://localhost:3000/Expenses")
-      .then((res) => setExpenses(res.data))
+      .get("http://localhost:3000/Categories")
+      .then((res) => setCategories(res.data))
       .catch((err) => setError(err.message));
   }, []);
+  const newExpanses = selectedCategory
+    ? expenses.filter((e) => e.category === selectedCategory)
+    : expenses;
 
   return (
     <>
       <main className="max-w-5xl mx-auto">
         {error && <p className="text-xl text-red-800">{error}</p>}
+        <ExpenseFilter
+          categories={categories}
+          onSelectCategory={(category) => setSelectedCategory(category)}
+        />
         <ExpenseList
-          expenses={expenses}
+          expenses={newExpanses}
           onDeleteExpense={(id) =>
             setExpenses(expenses.filter((expense) => expense.id !== id))
           }
